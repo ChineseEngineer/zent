@@ -1,49 +1,33 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import {
-  useField,
-  FieldModel,
-  IFormFieldChildProps,
-  IFieldMeta,
-} from 'formulr';
 
 import { FormControl, IFormControlProps } from '../Control';
-import Input, { IInputProps } from '../../input';
+import Input, { IInputProps, IInputChangeEvent } from '../../input';
 import { formFirstError } from '../Error';
-import { IFormFieldViewDrivenProps } from '../types';
+import { useField, IFormFieldCommonProps } from '../shared';
 
 export interface IFormInputFieldProps
   extends Omit<IInputProps, 'onChange' | 'value' | 'name'>,
     IFormControlProps<string> {}
 
-export type IFormInputModelProps =
-  | IFormFieldViewDrivenProps<string>
-  | {
-      model: FieldModel<string>;
-    };
+function mapInputEventToValue(
+  e: IInputChangeEvent | React.ChangeEvent<HTMLInputElement>
+) {
+  return e.target.value;
+}
 
 export const FormInputField: React.FunctionComponent<
-  IFormInputFieldProps & IFormInputModelProps
+  IFormInputFieldProps & IFormFieldCommonProps<string>
 > = props => {
-  let field: [
-    IFormFieldChildProps<string>,
-    IFieldMeta<string>,
-    FieldModel<string>
-  ];
-  if ((props as any).name) {
-    field = useField<string>((field as any).name, (field as any).defaultValue);
-  } else {
-    field = useField<string>((field as any).model);
-  }
-  const [childProps, { error }] = field;
-  const { className, style, label, prefix } = props;
-  const fieldOnChange = childProps.onChange;
-  const onChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      fieldOnChange(e.target.value);
-    },
-    [fieldOnChange]
-  );
+  const [childProps, { error }] = useField(props, '', mapInputEventToValue);
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
   return (
     <FormControl
       className={className}
@@ -51,8 +35,8 @@ export const FormInputField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <Input {...childProps} onChange={onChange} />
-      {formFirstError(error)}
+      <Input {...otherProps} {...childProps} />
+      {renderError(error)}
     </FormControl>
   );
 };

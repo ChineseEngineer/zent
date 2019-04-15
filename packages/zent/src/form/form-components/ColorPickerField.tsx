@@ -1,21 +1,43 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import ColorPicker, { IColorPickerProps } from '../../colorpicker';
+import { IFormControlProps, FormControl } from '../Control';
+import { formFirstError } from '../Error';
+import {
+  useField,
+  IFormFieldCommonProps,
+  noopMapEventToValue,
+} from '../shared';
 
-import ColorPicker from '../../colorpicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormColorPickerFieldProps
+  extends Omit<IColorPickerProps, 'color' | 'onChange'>,
+    IFormControlProps<string> {}
 
-export interface IFormColorPickerWrapProps {
-  value?: string;
-}
-
-class ColorPickerWrap extends Component<IFormColorPickerWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <ColorPicker {...passableProps} color={this.props.value} />;
-  }
-}
-const ColorPickerField = getControlGroup(ColorPickerWrap);
-
-export default ColorPickerField;
+export const FormColorPickerField: React.FunctionComponent<
+  IFormColorPickerFieldProps & IFormFieldCommonProps<string>
+> = props => {
+  const [{ value, ...passedProps }, { error }] = useField<string>(
+    props,
+    '',
+    noopMapEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <ColorPicker {...otherProps} {...passedProps} color={value} />
+      {renderError(error)}
+    </FormControl>
+  );
+};

@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import {
-  FieldModel,
-  IFormFieldChildProps,
-  IFieldMeta,
-  useField,
-} from 'formulr';
 import { ICheckboxGroupProps, CheckboxGroup } from '../../checkbox';
 import { IFormControlProps, FormControl } from '../Control';
-import { IFormFieldViewDrivenProps } from '../types';
 import { formFirstError } from '../Error';
+import {
+  useField,
+  IFormFieldCommonProps,
+  noopMapEventToValue,
+} from '../shared';
 
 export interface IFormCheckboxGroupFieldProps<T>
   extends Omit<ICheckboxGroupProps, 'value' | 'onChange'>,
@@ -17,23 +15,19 @@ export interface IFormCheckboxGroupFieldProps<T>
   children?: React.ReactNode;
 }
 
-export type IFormCheckboxGroupModelProps<T> =
-  | IFormFieldViewDrivenProps<T[]>
-  | {
-      model: FieldModel<string>;
-    };
-
 export function FormCheckboxGroupProps<T>(
-  props: IFormCheckboxGroupFieldProps<T> & IFormCheckboxGroupModelProps<T>
+  props: IFormCheckboxGroupFieldProps<T> & IFormFieldCommonProps<T[]>
 ) {
-  let field: [IFormFieldChildProps<T[]>, IFieldMeta<T[]>, FieldModel<T[]>];
-  if ((props as any).name) {
-    field = useField<T[]>((field as any).name, (field as any).defaultValue);
-  } else {
-    field = useField<T[]>((field as any).model);
-  }
-  const [childProps, { error }] = field;
-  const { className, style, label, prefix, children } = props;
+  const [childProps, { error }] = useField(props, [], noopMapEventToValue);
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    children,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
   return (
     <FormControl
       className={className}
@@ -41,8 +35,10 @@ export function FormCheckboxGroupProps<T>(
       label={label}
       prefix={prefix}
     >
-      <CheckboxGroup {...childProps}>{children}</CheckboxGroup>
-      {formFirstError(error)}
+      <CheckboxGroup {...otherProps} {...childProps}>
+        {children}
+      </CheckboxGroup>
+      {renderError(error)}
     </FormControl>
   );
 }
