@@ -1,22 +1,50 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { IFormControlProps, FormControl } from '../Control';
+import { DatePickers } from '../../datetimepicker/common/types';
+import {
+  IFormFieldCommonProps,
+  useField,
+  noopMapEventToValue,
+} from '../shared';
+import { formFirstError } from '../Error';
+import DateRangePicker, {
+  IDateRangePickerProps,
+} from '../../datetimepicker/DateRangePicker';
 
-import DateRangePicker from '../../datetimepicker/DateRangePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormDateRangePickerFieldProps
+  extends Omit<IDateRangePickerProps, 'onChange' | 'value'>,
+    IFormControlProps<DatePickers.RangeValue> {}
 
-export interface IFormDateRangePickerWrapProps {
-  dateFormat?: string;
+function dateDefaultValueFactory(): DatePickers.RangeValue {
+  return [new Date(), new Date()];
 }
 
-class DateRangePickerWrap extends Component<IFormDateRangePickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <DateRangePicker {...passableProps} format={dateFormat} />;
-  }
-}
-const DateRangePickerField = getControlGroup(DateRangePickerWrap);
-
-export default DateRangePickerField;
+export const FormDateRangePickerField: React.FunctionComponent<
+  IFormDateRangePickerFieldProps & IFormFieldCommonProps<DatePickers.RangeValue>
+> = props => {
+  const [childProps, { error }] = useField(
+    props,
+    dateDefaultValueFactory,
+    noopMapEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <DateRangePicker {...otherProps} {...childProps} />
+      {renderError(error)}
+    </FormControl>
+  );
+};

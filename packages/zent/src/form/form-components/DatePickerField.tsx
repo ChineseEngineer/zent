@@ -1,22 +1,48 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import DatePicker, { IDatePickerProps } from '../../datetimepicker/DatePicker';
+import { IFormControlProps, FormControl } from '../Control';
+import { DatePickers } from '../../datetimepicker/common/types';
+import {
+  IFormFieldCommonProps,
+  useField,
+  noopMapEventToValue,
+} from '../shared';
+import { formFirstError } from '../Error';
 
-import DatePicker from '../../datetimepicker/DatePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormDatePickerField
+  extends Omit<IDatePickerProps, 'onChange' | 'value'>,
+    IFormControlProps<DatePickers.Value> {}
 
-export interface IFormDatePickerWrapProps {
-  dateFormat?: string;
+function dateDefaultValueFactory() {
+  return new Date();
 }
 
-class DatePickerWrap extends Component<IFormDatePickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <DatePicker {...passableProps} format={dateFormat} />;
-  }
-}
-const DatePickerField = getControlGroup(DatePickerWrap);
-
-export default DatePickerField;
+export const FormDatePickerField: React.FunctionComponent<
+  IFormDatePickerField & IFormFieldCommonProps<DatePickers.Value>
+> = props => {
+  const [childProps, { error }] = useField(
+    props,
+    dateDefaultValueFactory,
+    noopMapEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <DatePicker {...otherProps} {...childProps} />
+      {renderError(error)}
+    </FormControl>
+  );
+};

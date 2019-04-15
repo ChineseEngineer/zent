@@ -18,7 +18,7 @@ export interface IRenderError<T> {
 
 export interface IFormFieldViewDrivenProps<T> {
   name: string;
-  defaultValue?: T;
+  defaultValue?: T | (() => T);
   required?: boolean;
   validators?: Array<IValidator<T>>;
 }
@@ -64,16 +64,27 @@ export type IZentUseField<Value, Event> = [
   FieldModel<Value>
 ];
 
+function mapDefaultValue<Value, Event>(
+  props: Partial<IFormFieldSharedProps<Value, Event>>,
+  defaultDefaultValue: Value | (() => Value)
+): Value {
+  const maybeFactory = props.defaultValue || defaultDefaultValue;
+  if (typeof maybeFactory === 'function') {
+    return (maybeFactory as (() => Value))();
+  }
+  return maybeFactory;
+}
+
 export function useField<Value, Event = Value>(
   props: Partial<IFormFieldSharedProps<Value, Event>>,
-  defaultDefaultValue: Value,
+  defaultDefaultValue: Value | (() => Value),
   mapEventToValue: (e: Event) => Value
 ): IZentUseField<Value, Event> {
   let field: IUseField<Value>;
   if (props.name) {
     field = superUseField<Value>(
       props.name,
-      props.defaultValue || defaultDefaultValue
+      mapDefaultValue(props, defaultDefaultValue)
     );
   } else {
     field = superUseField<Value>(props.model as FieldModel<Value>);
