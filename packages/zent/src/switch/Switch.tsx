@@ -4,7 +4,7 @@ import setClass from 'classnames';
 
 export interface ISwitchProps {
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange: (checked: boolean) => void;
   disabled?: boolean;
   checkedText?: string;
   uncheckedText?: string;
@@ -48,7 +48,7 @@ export class Switch extends Component<ISwitchProps> {
     return (
       <div
         className={classNames}
-        onClick={switchDisabled ? null : this.toggle}
+        onClick={switchDisabled ? undefined : this.toggle}
       />
     );
   }

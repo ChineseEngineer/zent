@@ -1,23 +1,38 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import Switch, { ISwitchProps } from '../../switch';
+import { IFormControlProps, FormControl } from '../Control';
+import {
+  IFormFieldCommonProps,
+  useField,
+  noopMapEventToValue,
+} from '../shared';
+import { formFirstError } from '../Error';
 
-import Switch from '../../switch';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormSwitchFieldProps
+  extends Omit<ISwitchProps, 'onChange' | 'checked'>,
+    IFormControlProps<boolean> {}
 
-export interface IFormSwitchWrapProps {
-  value: boolean;
-}
-
-class SwitchWrap extends Component<IFormSwitchWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return (
-      <Switch {...passableProps} size="small" checked={this.props.value} />
-    );
-  }
-}
-const SwitchField = getControlGroup(SwitchWrap);
-
-export default SwitchField;
+export const FormSwitchField: React.FunctionComponent<
+  IFormSwitchFieldProps & IFormFieldCommonProps<boolean>
+> = props => {
+  const [{ value, ...childProps }, { error }] = useField(
+    props,
+    false,
+    noopMapEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl>
+      <Switch {...otherProps} {...childProps} checked={value} />
+      {renderError(error)}
+    </FormControl>
+  );
+};
