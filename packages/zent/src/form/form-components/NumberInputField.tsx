@@ -16,14 +16,14 @@ export interface IFormNumberInputFieldProps
   extends Omit<INumberInputProps, 'onChange' | 'value' | 'name'>,
     IFormControlProps<string> {}
 
-export type IFormNumberInputFieldModelProps =
+export type IFormNumberInputModelProps =
   | IFormFieldViewDrivenProps<string>
   | {
       mode: FieldModel<string>;
     };
 
 export const NumberInputField: React.FunctionComponent<
-  IFormNumberInputFieldProps & IFormNumberInputFieldModelProps
+  IFormNumberInputFieldProps & IFormNumberInputModelProps
 > = props => {
   let field: [
     IFormFieldChildProps<string>,
@@ -35,7 +35,7 @@ export const NumberInputField: React.FunctionComponent<
   } else {
     field = useField<string>((field as any).model);
   }
-  const [inputProps, { error }] = field;
+  const [childProps, { error }] = field;
   const { className, style, label, prefix } = props;
   return (
     <FormControl
@@ -44,7 +44,7 @@ export const NumberInputField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <NumberInput {...inputProps} />
+      <NumberInput {...childProps} />
       {formFirstError(error)}
     </FormControl>
   );

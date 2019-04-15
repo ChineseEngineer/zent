@@ -16,14 +16,14 @@ export interface IFormInputFieldProps
   extends Omit<IInputProps, 'onChange' | 'value' | 'name'>,
     IFormControlProps<string> {}
 
-export type IFormInputFieldModelProps =
+export type IFormInputModelProps =
   | IFormFieldViewDrivenProps<string>
   | {
       model: FieldModel<string>;
     };
 
 export const FormInputField: React.FunctionComponent<
-  IFormInputFieldProps & IFormInputFieldModelProps
+  IFormInputFieldProps & IFormInputModelProps
 > = props => {
   let field: [
     IFormFieldChildProps<string>,
@@ -35,13 +35,14 @@ export const FormInputField: React.FunctionComponent<
   } else {
     field = useField<string>((field as any).model);
   }
-  const [inputProps, { error }] = field;
+  const [childProps, { error }] = field;
   const { className, style, label, prefix } = props;
+  const fieldOnChange = childProps.onChange;
   const onChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      inputProps.onChange(e.target.value);
+      fieldOnChange(e.target.value);
     },
-    [inputProps.onChange]
+    [fieldOnChange]
   );
   return (
     <FormControl
@@ -50,7 +51,7 @@ export const FormInputField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <Input {...inputProps} onChange={onChange} />
+      <Input {...childProps} onChange={onChange} />
       {formFirstError(error)}
     </FormControl>
   );
