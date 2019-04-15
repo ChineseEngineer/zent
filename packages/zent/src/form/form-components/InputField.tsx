@@ -2,36 +2,28 @@ import * as React from 'react';
 import { Omit } from 'utility-types';
 import {
   useField,
-  BasicModel,
   FieldModel,
   IFormFieldChildProps,
   IFieldMeta,
-  IValidator,
 } from 'formulr';
 
 import { FormControl, IFormControlProps } from '../Control';
 import Input, { IInputProps } from '../../input';
 import { formFirstError } from '../Error';
-
-export interface IFormFieldViewDrivenProps<T> {
-  name: T;
-  defaultValue?: T;
-  required?: boolean;
-  validators?: Array<IValidator<T>>;
-}
+import { IFormFieldViewDrivenProps } from '../types';
 
 export interface IFormInputFieldProps
   extends Omit<IInputProps, 'onChange' | 'value' | 'name'>,
     IFormControlProps<string> {}
 
-export type IFormModelProps<Value, Model extends BasicModel<Value>> =
+export type IFormInputFieldModelProps =
   | IFormFieldViewDrivenProps<string>
   | {
-      model: Model;
+      model: FieldModel<string>;
     };
 
 export const FormInputField: React.FunctionComponent<
-  IFormInputFieldProps & IFormModelProps<string, FieldModel<string>>
+  IFormInputFieldProps & IFormInputFieldModelProps
 > = props => {
   let field: [
     IFormFieldChildProps<string>,
@@ -45,9 +37,12 @@ export const FormInputField: React.FunctionComponent<
   }
   const [inputProps, { error }] = field;
   const { className, style, label, prefix } = props;
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    inputProps.onChange(e.target.value);
-  }
+  const onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      inputProps.onChange(e.target.value);
+    },
+    [inputProps.onChange]
+  );
   return (
     <FormControl
       className={className}
