@@ -1,24 +1,43 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
 
-import Radio from '../../radio';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import { IRadioGroupProps, RadioGroup } from '../../radio';
+import {
+  IFormFieldCommonProps,
+  noopMapEventToValue,
+  useField,
+} from '../shared';
+import { FormControl, IFormControlProps } from '../Control';
+import { formFirstError } from '../Error';
 
-const RadioGroup = Radio.Group;
+export interface IFormRadioGroupFieldProps
+  extends Omit<IRadioGroupProps, 'value' | 'onChange'>,
+    IFormControlProps<unknown> {}
 
-export interface IFormRadioGroupWrapProps {
-  value: any;
-}
-
-class RadioGroupWrap extends Component<IFormRadioGroupWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <RadioGroup className="zent-form__radio-group" {...passableProps} />;
-  }
-}
-
-const RadioGroupField = getControlGroup(RadioGroupWrap);
-
-export default RadioGroupField;
+export const FormRadioGroupField: React.FunctionComponent<
+  IFormRadioGroupFieldProps & IFormFieldCommonProps<unknown>
+> = props => {
+  const [childProps, { error }] = useField(props, '', noopMapEventToValue);
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    children,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <RadioGroup {...otherProps} {...childProps}>
+        {children}
+      </RadioGroup>
+      {formFirstError(error)}
+    </FormControl>
+  );
+};
