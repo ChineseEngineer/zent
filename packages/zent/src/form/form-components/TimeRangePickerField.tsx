@@ -1,22 +1,51 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { IFormControlProps, FormControl } from '../Control';
+import { DatePickers } from '../../datetimepicker/common/types';
+import {
+  IFormFieldCommonProps,
+  useField,
+  noopMapEventToValue,
+} from '../shared';
+import { formFirstError } from '../Error';
+import TimeRangePicker, {
+  ITimeRangePickerProps,
+} from '../../datetimepicker/TimeRangePicker';
 
-import TimeRangePicker from '../../datetimepicker/TimeRangePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormTimeRangePickerFieldProps
+  extends Omit<ITimeRangePickerProps, 'onChange' | 'value'>,
+    IFormControlProps<[DatePickers.Value, DatePickers.Value]> {}
 
-export interface IFormTimeRangePickerWrapProps {
-  timeFormat: string;
+function dateDefaultValueFactory(): [DatePickers.Value, DatePickers.Value] {
+  return [new Date(), new Date()];
 }
 
-class TimeRangePickerWrap extends Component<IFormTimeRangePickerWrapProps> {
-  render() {
-    const { timeFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['timeFormat']);
-    return <TimeRangePicker {...passableProps} format={timeFormat} />;
-  }
-}
-const TimeRangePickerField = getControlGroup(TimeRangePickerWrap);
-
-export default TimeRangePickerField;
+export const FormTimeRangePickerField: React.FunctionComponent<
+  IFormTimeRangePickerFieldProps &
+    IFormFieldCommonProps<[DatePickers.Value, DatePickers.Value]>
+> = props => {
+  const [childProps, { error }] = useField(
+    props,
+    dateDefaultValueFactory,
+    noopMapEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <TimeRangePicker {...otherProps} {...childProps} />
+      {renderError(error)}
+    </FormControl>
+  );
+};

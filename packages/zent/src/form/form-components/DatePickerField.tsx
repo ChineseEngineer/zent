@@ -7,16 +7,13 @@ import {
   IFormFieldCommonProps,
   useField,
   noopMapEventToValue,
+  dateDefaultValueFactory,
 } from '../shared';
 import { formFirstError } from '../Error';
 
 export interface IFormDatePickerField
   extends Omit<IDatePickerProps, 'onChange' | 'value'>,
     IFormControlProps<DatePickers.Value> {}
-
-function dateDefaultValueFactory() {
-  return new Date();
-}
 
 export const FormDatePickerField: React.FunctionComponent<
   IFormDatePickerField & IFormFieldCommonProps<DatePickers.Value>

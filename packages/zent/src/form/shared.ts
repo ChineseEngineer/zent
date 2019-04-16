@@ -127,3 +127,7 @@ export function useField<Value, Event = Value>(
   proxy.value = childProps.value;
   return [proxy, meta, model];
 }
+
+export function dateDefaultValueFactory() {
+  return new Date();
+}

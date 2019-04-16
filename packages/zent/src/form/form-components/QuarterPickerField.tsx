@@ -1,22 +1,42 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import QuarterPicker, {
+  IQuarterPickerProps,
+  QuarterPickerValue,
+} from '../../datetimepicker/QuarterPicker';
+import { IFormControlProps, FormControl } from '../Control';
+import {
+  IFormFieldCommonProps,
+  noopMapEventToValue,
+  useField,
+} from '../shared';
+import { formFirstError } from '../Error';
 
-import QuarterPicker from '../../datetimepicker/QuarterPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export interface IFormQuarterPickerFieldProps
+  extends Omit<IQuarterPickerProps, 'value' | 'onChange'>,
+    IFormControlProps<QuarterPickerValue> {}
 
-export interface IFormQuarterPickerWrapProps {
-  dateFormat?: string;
-}
-
-class QuarterPickerWrap extends Component<IFormQuarterPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <QuarterPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const QuarterPickerField = getControlGroup(QuarterPickerWrap);
-
-export default QuarterPickerField;
+export const FormQuarterPickerField: React.FunctionComponent<
+  IFormQuarterPickerFieldProps & IFormFieldCommonProps<QuarterPickerValue>
+> = props => {
+  const [childProps, { error }] = useField(props, [], noopMapEventToValue);
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    ...otherProps
+  } = props;
+  return (
+    <FormControl
+      className={className}
+      style={style}
+      label={label}
+      prefix={prefix}
+    >
+      <QuarterPicker {...otherProps} {...childProps} />
+      {renderError(error)}
+    </FormControl>
+  );
+};

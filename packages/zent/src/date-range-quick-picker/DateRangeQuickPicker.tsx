@@ -7,11 +7,10 @@ import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';
 
 import * as Helper from './helper';
-
-export type DateRangeQuickPickerValue = number | string;
+import { DatePickers } from '../datetimepicker/common/types';
 
 export type DateRangeQuickPickerChangeCallback = (
-  value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
+  value: DatePickers.RangeValue,
   choosePresetValue?: number
 ) => void;
 
@@ -24,9 +23,9 @@ export interface IDateRangeQuickPickerProps {
   prefix?: string;
   className?: string;
   onChange: DateRangeQuickPickerChangeCallback;
-  value?: [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
+  value: DatePickers.RangeValue;
   valueType?: 'string' | 'number';
-  format?: string;
+  format: string;
   chooseDays?: number;
   preset?: IDateRangeQuickPickerPreset[];
   min?: string | number | Date;
@@ -54,12 +53,12 @@ export class DateRangeQuickPicker extends Component<
     max: '',
   };
 
-  handleTimeChange = value => {
+  handleTimeChange = (value: DatePickers.RangeValue) => {
     const { onChange } = this.props;
     onChange(value, 0);
   };
 
-  handleChooseDays = num => {
+  handleChooseDays = (num: number) => {
     const { format, onChange, valueType } = this.props;
     const value = Helper.calculateTime(format, num, valueType);
     onChange(value, num);
