@@ -15,85 +15,85 @@ en-US:
 ---
 
 ```jsx
-import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload, Notify } from 'zent';
-import omit from 'lodash/omit';
+// import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload, Notify } from 'zent';
+// import omit from 'lodash/omit';
 
-const { Field, createForm, getControlGroup, unknownProps } = Form;
+// const { Field, createForm, getControlGroup, unknownProps } = Form;
 
-class UploadWrap extends React.Component {
-	wrappedOnChange = (imgs) => {
-		this.props.onChange(imgs);
-	};
+// class UploadWrap extends React.Component {
+// 	wrappedOnChange = (imgs) => {
+// 		this.props.onChange(imgs);
+// 	};
 
-	render() {
-		const passableProps = omit(this.props, unknownProps);
-		const { value } = this.props;
+// 	render() {
+// 		const passableProps = omit(this.props, unknownProps);
+// 		const { value } = this.props;
 
-		return (
-			<div>
-				<Upload {...passableProps} onUpload={this.wrappedOnChange} localOnly />
-				{
-					value && value.map((item, index) => {
-						return (
-							<img 
-								width="80" 
-								height="80" 
-								key={index} 
-								src={item.src} 
-								style={{marginLeft: '10px'}} 
-							/>
-						);
-					})
-				}
-			</div>
-		);
-	}
-}
+// 		return (
+// 			<div>
+// 				<Upload {...passableProps} onUpload={this.wrappedOnChange} localOnly />
+// 				{
+// 					value && value.map((item, index) => {
+// 						return (
+// 							<img 
+// 								width="80" 
+// 								height="80" 
+// 								key={index} 
+// 								src={item.src} 
+// 								style={{marginLeft: '10px'}} 
+// 							/>
+// 						);
+// 					})
+// 				}
+// 			</div>
+// 		);
+// 	}
+// }
 
-const UploadField = getControlGroup(UploadWrap);
+// const UploadField = getControlGroup(UploadWrap);
 
-class FieldForm extends React.Component {
-	updateLocalImage = (data) => {
-		return new Promise(resolve => {
-			resolve(data);
-		})
-	};
+// class FieldForm extends React.Component {
+// 	updateLocalImage = (data) => {
+// 		return new Promise(resolve => {
+// 			resolve(data);
+// 		})
+// 	};
 
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	resetForm = () => {
-		this.props.zentForm.resetFieldsValue();
-	}
+// 	resetForm = () => {
+// 		this.props.zentForm.resetFieldsValue();
+// 	}
 
-	render() {
-		const { handleSubmit } = this.props;
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<Field
-					name="imgs"
-					label="{i18n.imgText}:"
-					component={UploadField}
-					value={[]}
-					maxSize={8 * 1000 * 1000}
-					triggerInline
-					tips="{i18n.tip}"
-					onUpload={this.updateLocalImage}
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 	render() {
+// 		const { handleSubmit } = this.props;
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<Field
+// 					name="imgs"
+// 					label="{i18n.imgText}:"
+// 					component={UploadField}
+// 					value={[]}
+// 					maxSize={8 * 1000 * 1000}
+// 					triggerInline
+// 					tips="{i18n.tip}"
+// 					onUpload={this.updateLocalImage}
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
+// 					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(FieldForm);
+// const WrappedForm = createForm()(FieldForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

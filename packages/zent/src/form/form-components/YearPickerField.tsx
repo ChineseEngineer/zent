@@ -10,6 +10,8 @@ import {
 import { formFirstError } from '../Error';
 import YearPicker, { IYearPickerProps } from '../../datetimepicker/YearPicker';
 import { DatePickers } from '../../datetimepicker/common/types';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormYearPickerFieldProps
   extends Omit<IYearPickerProps, 'value' | 'onChange'>,
@@ -29,6 +31,9 @@ export const FormYearPickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -38,7 +43,11 @@ export const FormYearPickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <YearPicker {...otherProps} {...childProps} />
+      <YearPicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

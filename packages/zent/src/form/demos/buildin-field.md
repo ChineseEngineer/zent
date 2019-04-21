@@ -55,11 +55,14 @@ en-US:
 ---
 
 ```jsx
-import { Form, Radio, Checkbox, Button, Notify } from 'zent';
-const {
+// import { Form, Radio, Checkbox, Button, Notify } from 'zent';
+import {
+	useForm,
+	Form,
+	FormStrategy,
 	Field,
 	FormInputField,
-	FormSelectField,
+	// FormSelectField,
 	FormRadioGroupField,
 	FormCheckboxField,
 	FormCheckboxGroupField,
@@ -67,132 +70,223 @@ const {
 	FormDateRangePickerField,
 	FormNumberInputField,
 	FormSwitchField,
-	createForm,
-} = Form;
+	Radio,
+	Checkbox,
+} from 'zent';
 
-class FieldForm extends React.Component {
-	state = {
-		checkedList: [],
-	};
-
-	onCheckboxChange = checkedList => {
-		this.setState({ checkedList });
-	};
-
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
-
-	resetForm = () => {
-		this.props.zentForm.resetFieldsValue();
-	};
-
-	render() {
-		const { handleSubmit } = this.props;
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<FormInputField
-					name="name"
-					type="text"
-					label="{i18n.name}:"
-					required
-					spellCheck={false}
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.nameValidationError}' }}
-				/>
-				<FormSelectField
-					name="type"
-					label="{i18n.type}:"
-					data={[
-						{ value: 1, text: '{i18n.typeText1}' },
-						{ value: 2, text: '{i18n.typeText2}' },
-					]}
-					required
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.typeValidationErrors}' }}
-				/>
-				<FormRadioGroupField
-					name="sex"
-					label="{i18n.sex}:"
-					required
-					validations={{
-						required(values, value) {
-							return value !== '';
-						},
-					}}
-					validationErrors={{
-						required: '{i18n.sexValidationErrors}',
-					}}
-				>
-					<Radio value="1">{i18n.sexText1}</Radio>
-					<Radio value="2">{i18n.sexText2}</Radio>
-				</FormRadioGroupField>
-				<FormCheckboxGroupField
-					name="hobbies"
-					label="{i18n.tagText}:"
-					value={this.state.checkedList}
-					onChange={this.onCheckboxChange}
-					required
-					validations={{
-						minLength: 1,
-					}}
-					validationErrors={{
-						minLength: '{i18n.tagValidationErrors}',
-					}}
-				>
-					<Checkbox value="movie">{i18n.tagText1}</Checkbox>
-					<Checkbox value="book">{i18n.tagText2}</Checkbox>
-					<Checkbox value="travel">{i18n.tagText3}</Checkbox>
-				</FormCheckboxGroupField>
-				<FormNumberInputField
-					name="age"
-					label="{i18n.ageText}:"
-					showStepper
-					value={12}
-				/>
-				<FormColorPickerField
-					name="color"
-					label="{i18n.colorText}:"
-					value="#5197FF"
-				/>
-				<FormDateRangePickerField
-					name="dateRange"
-					label="{i18n.dateRangeText}:"
-					type="split"
-					value={[]}
-					dateFormat="YYYY-MM-DD HH:mm:ss"
-					validations={{
-						required(values, value) {
-							return !!value[0] && !!value[1];
-						},
-					}}
-					validationErrors={{
-						required: '{i18n.dateRangeValidationErrors}',
-					}}
-				/>
-				<FormSwitchField
-					name="isPublic"
-					label="{i18n.isPublicText}:"
-					value={false}
-				/>
-				<FormCheckboxField name="agree" label="{i18n.agreeText}:">
-					{i18n.agreeCont}
-				</FormCheckboxField>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">
-						{i18n.submit}
-					</Button>
-					<Button type="primary" outline onClick={this.resetForm}>
-						{i18n.reset}
-					</Button>
-				</div>
-			</Form>
-		);
-	}
+function Component() {
+	const form = useForm(FormStrategy.View);
+	return (
+		<Form form={form}>
+			<FormInputField
+				name="name"
+				type="text"
+				label="{i18n.name}:"
+				required
+				spellCheck={false}
+			/>
+			{/*<FormSelectField
+				name="type"
+				label="{i18n.type}:"
+				data={[
+					{ value: 1, text: '{i18n.typeText1}' },
+					{ value: 2, text: '{i18n.typeText2}' },
+				]}
+				required
+				validations={{ required: true }}
+				validationErrors={{ required: '{i18n.typeValidationErrors}' }}
+			/>*/}
+			<FormRadioGroupField
+				name="sex"
+				label="{i18n.sex}:"
+				required
+				validations={{
+					required(values, value) {
+						return value !== '';
+					},
+				}}
+				validationErrors={{
+					required: '{i18n.sexValidationErrors}',
+				}}
+			>
+				<Radio value="1">{i18n.sexText1}</Radio>
+				<Radio value="2">{i18n.sexText2}</Radio>
+			</FormRadioGroupField>
+			<FormCheckboxGroupField
+				name="hobbies"
+				label="{i18n.tagText}:"
+				required
+				validations={{
+					minLength: 1,
+				}}
+				validationErrors={{
+					minLength: '{i18n.tagValidationErrors}',
+				}}
+			>
+				<Checkbox value="movie">{i18n.tagText1}</Checkbox>
+				<Checkbox value="book">{i18n.tagText2}</Checkbox>
+				<Checkbox value="travel">{i18n.tagText3}</Checkbox>
+			</FormCheckboxGroupField>
+			<FormNumberInputField
+				name="age"
+				label="{i18n.ageText}:"
+				showStepper
+				defaultValue={12}
+			/>
+			<FormColorPickerField
+				name="color"
+				label="{i18n.colorText}:"
+				defaultValue="#5197FF"
+			/>
+			<FormDateRangePickerField
+				name="dateRange"
+				label="{i18n.dateRangeText}:"
+				type="split"
+				dateFormat="YYYY-MM-DD HH:mm:ss"
+				validations={{
+					required(values, value) {
+						return !!value[0] && !!value[1];
+					},
+				}}
+				validationErrors={{
+					required: '{i18n.dateRangeValidationErrors}',
+				}}
+			/>
+			<FormSwitchField
+				name="isPublic"
+				label="{i18n.isPublicText}:"
+				defaultValue={false}
+			/>
+			<FormCheckboxField name="agree" label="{i18n.agreeText}:">
+				{i18n.agreeCont}
+			</FormCheckboxField>
+		</Form>
+	);
 }
-const WrappedForm = createForm({ scrollToError: true })(FieldForm);
 
-ReactDOM.render(<WrappedForm />, mountNode);
+// class FieldForm extends React.Component {
+// 	state = {
+// 		checkedList: [],
+// 	};
+
+// 	onCheckboxChange = checkedList => {
+// 		this.setState({ checkedList });
+// 	};
+
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
+
+// 	resetForm = () => {
+// 		this.props.zentForm.resetFieldsValue();
+// 	};
+
+// 	render() {
+// 		const { handleSubmit } = this.props;
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<FormInputField
+// 					name="name"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					required
+// 					spellCheck={false}
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.nameValidationError}' }}
+// 				/>
+// 				<FormSelectField
+// 					name="type"
+// 					label="{i18n.type}:"
+// 					data={[
+// 						{ value: 1, text: '{i18n.typeText1}' },
+// 						{ value: 2, text: '{i18n.typeText2}' },
+// 					]}
+// 					required
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.typeValidationErrors}' }}
+// 				/>
+// 				<FormRadioGroupField
+// 					name="sex"
+// 					label="{i18n.sex}:"
+// 					required
+// 					validations={{
+// 						required(values, value) {
+// 							return value !== '';
+// 						},
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.sexValidationErrors}',
+// 					}}
+// 				>
+// 					<Radio value="1">{i18n.sexText1}</Radio>
+// 					<Radio value="2">{i18n.sexText2}</Radio>
+// 				</FormRadioGroupField>
+// 				<FormCheckboxGroupField
+// 					name="hobbies"
+// 					label="{i18n.tagText}:"
+// 					value={this.state.checkedList}
+// 					onChange={this.onCheckboxChange}
+// 					required
+// 					validations={{
+// 						minLength: 1,
+// 					}}
+// 					validationErrors={{
+// 						minLength: '{i18n.tagValidationErrors}',
+// 					}}
+// 				>
+// 					<Checkbox value="movie">{i18n.tagText1}</Checkbox>
+// 					<Checkbox value="book">{i18n.tagText2}</Checkbox>
+// 					<Checkbox value="travel">{i18n.tagText3}</Checkbox>
+// 				</FormCheckboxGroupField>
+// 				<FormNumberInputField
+// 					name="age"
+// 					label="{i18n.ageText}:"
+// 					showStepper
+// 					value={12}
+// 				/>
+// 				<FormColorPickerField
+// 					name="color"
+// 					label="{i18n.colorText}:"
+// 					value="#5197FF"
+// 				/>
+// 				<FormDateRangePickerField
+// 					name="dateRange"
+// 					label="{i18n.dateRangeText}:"
+// 					type="split"
+// 					value={[]}
+// 					dateFormat="YYYY-MM-DD HH:mm:ss"
+// 					validations={{
+// 						required(values, value) {
+// 							return !!value[0] && !!value[1];
+// 						},
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.dateRangeValidationErrors}',
+// 					}}
+// 				/>
+// 				<FormSwitchField
+// 					name="isPublic"
+// 					label="{i18n.isPublicText}:"
+// 					value={false}
+// 				/>
+// 				<FormCheckboxField name="agree" label="{i18n.agreeText}:">
+// 					{i18n.agreeCont}
+// 				</FormCheckboxField>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">
+// 						{i18n.submit}
+// 					</Button>
+// 					<Button type="primary" outline onClick={this.resetForm}>
+// 						{i18n.reset}
+// 					</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
+// const WrappedForm = createForm({ scrollToError: true })(FieldForm);
+
+ReactDOM.render(<Component />, mountNode);
 ```
 
 <style>

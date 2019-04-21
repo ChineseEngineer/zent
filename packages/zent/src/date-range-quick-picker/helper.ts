@@ -1,12 +1,12 @@
 import formatDate from '../utils/date/formatDate';
 import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
-import { DateRangeQuickPickerValue } from './DateRangeQuickPicker';
+import { DatePickers } from '../datetimepicker/common/types';
 
 export function calculateTime(
   format: string,
   chooseDays,
   valueType
-): [DateRangeQuickPickerValue, DateRangeQuickPickerValue] {
+): DatePickers.RangeValue {
   let startTime;
   if (chooseDays > 1) {
     startTime = NOW - (chooseDays - 1) * ONE_DAY;

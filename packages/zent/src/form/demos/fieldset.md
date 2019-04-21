@@ -13,48 +13,48 @@ en-US:
 ---
 
 ```jsx
-import { Form, Notify } from 'zent';
+// import { Form, Notify } from 'zent';
 
-const { Field, Fieldset, FormInputField, createForm } = Form;
+// const { Field, Fieldset, FormInputField, createForm } = Form;
 
-class FieldsetForm extends React.Component {
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// class FieldsetForm extends React.Component {
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	render() {
-		const { handleSubmit } = this.props;
+// 	render() {
+// 		const { handleSubmit } = this.props;
 
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<Fieldset legend="Fieldset1">
-					<FormInputField
-						name="name"
-						type="text"
-						label="{i18n.name}:"
-						value=""
-					/>
-				</Fieldset>
-				<Fieldset legend="Fieldset2">
-					<FormInputField
-						name="name2"
-						type="text"
-						label="{i18n.name2}:"
-						value=""
-					/>
-				</Fieldset>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<Fieldset legend="Fieldset1">
+// 					<FormInputField
+// 						name="name"
+// 						type="text"
+// 						label="{i18n.name}:"
+// 						value=""
+// 					/>
+// 				</Fieldset>
+// 				<Fieldset legend="Fieldset2">
+// 					<FormInputField
+// 						name="name2"
+// 						type="text"
+// 						label="{i18n.name2}:"
+// 						value=""
+// 					/>
+// 				</Fieldset>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(FieldsetForm);
+// const WrappedForm = createForm()(FieldsetForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

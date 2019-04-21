@@ -3,24 +3,44 @@ import { Omit } from 'utility-types';
 import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
 import { FormControl, IFormControlProps } from '../Control';
 import { formFirstError } from '../Error';
-import { useField, IFormFieldCommonProps } from '../shared';
+import {
+  useField,
+  IFormFieldCommonProps,
+  IFormFieldSharedProps,
+} from '../shared';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormCheckboxFieldProps
   extends Omit<ICheckboxProps, 'onChange' | 'checked'>,
     IFormControlProps<boolean> {}
 
 function mapCheckboxEventToValue(e: ICheckboxEvent) {
-  return e.target.value;
+  return e.target.checked;
 }
 
-export const FormCheckboxField: React.FunctionComponent<
-  IFormCheckboxFieldProps & IFormFieldCommonProps<boolean>
-> = props => {
+export const FormCheckboxField = (
+  props: IFormCheckboxFieldProps & IFormFieldCommonProps<boolean>
+) => {
   const [{ value, ...passedProps }, { error }] = useField<
     boolean,
     ICheckboxEvent
-  >(props, false, mapCheckboxEventToValue);
-  const { className, style, label, prefix, ...otherProps } = props;
+  >(
+    props as IFormFieldSharedProps<boolean, ICheckboxEvent>,
+    false,
+    mapCheckboxEventToValue
+  );
+  const {
+    className,
+    style,
+    label,
+    prefix,
+    renderError = formFirstError,
+    required,
+    description,
+    notice,
+    ...otherProps
+  } = props;
   return (
     <FormControl
       className={className}
@@ -28,8 +48,17 @@ export const FormCheckboxField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <Checkbox {...otherProps} {...passedProps} checked={value} />
-      {formFirstError(error)}
+      <Checkbox
+        prefix={prefix}
+        {...otherProps}
+        {...passedProps}
+        checked={value}
+      />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
+      {renderError(error)}
     </FormControl>
   );
 };

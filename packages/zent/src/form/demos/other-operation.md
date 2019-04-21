@@ -35,104 +35,104 @@ en-US:
 ---
 
 ```jsx
-import { Form, Button, Notify } from 'zent';
-const { Field, FormInputField, createForm } = Form;
+// import { Form, Button, Notify } from 'zent';
+// const { Field, FormInputField, createForm } = Form;
 
-class SubmitForm extends React.Component {
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// class SubmitForm extends React.Component {
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	setError = () => {
-		const { zentForm } = this.props;
-		zentForm.setFieldExternalErrors({
-			name: '{i18n.nameValidationError2}'
-		});
-	}
+// 	setError = () => {
+// 		const { zentForm } = this.props;
+// 		zentForm.setFieldExternalErrors({
+// 			name: '{i18n.nameValidationError2}'
+// 		});
+// 	}
 
-	initialize = () => {
-		const { zentForm } = this.props;
-		zentForm.initialize({
-			name: '0',
-			age: '0',
-			password: '0'
-		});
-	}
+// 	initialize = () => {
+// 		const { zentForm } = this.props;
+// 		zentForm.initialize({
+// 			name: '0',
+// 			age: '0',
+// 			password: '0'
+// 		});
+// 	}
 
-	setFieldsValue = () => {
-		const { zentForm } = this.props;
-		zentForm.setFieldsValue({
-			name: '3'
-		});
-	}
+// 	setFieldsValue = () => {
+// 		const { zentForm } = this.props;
+// 		zentForm.setFieldsValue({
+// 			name: '3'
+// 		});
+// 	}
 
-	reset = () => {
-		const { zentForm } = this.props;
-		zentForm.resetFieldsValue();
-	}
+// 	reset = () => {
+// 		const { zentForm } = this.props;
+// 		zentForm.resetFieldsValue();
+// 	}
 
-	render() {
-		const { handleSubmit, zentForm } = this.props;
-		const isSubmitting = zentForm.isSubmitting();
+// 	render() {
+// 		const { handleSubmit, zentForm } = this.props;
+// 		const isSubmitting = zentForm.isSubmitting();
 
-		return (
-			<Form onSubmit={handleSubmit(this.submit)} horizontal>
-				<FormInputField
-					name="name"
-					type="text"
-					label="{i18n.name}:"
-					value="1"
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.nameValidationError}' }}
-				/>
-				<FormInputField
-					name="age"
-					type="text"
-					label="{i18n.age}:"
-					value="1"
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.ageValidationError}' }}
-				/>
-				<FormInputField
-					name="password"
-					type="text"
-					label="{i18n.password}:"
-					value="1"
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.pwValidationError}' }}
-				/>
-				<FormInputField
-					name="confirmPassword"
-					type="text"
-					label="{i18n.comfirmPw}:"
-					value="1"
-					validations={{
-						required: true,
-						isPasswordEqual(values, value) {
-							if (values.password !== value) {
-								return '{i18n.comfirmValidatiaonError1}';
-							}
-							return true;
-						}
-					}}
-					validationErrors={{
-						required: '{i18n.comfirmValidatiaonError2}'
-					}}
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
-					<Button type="primary" outline onClick={this.initialize}>{i18n.initialize}</Button>
-					<Button type="primary" outline onClick={this.setFieldsValue}>{i18n.setValue}</Button>
-					<Button type="primary" outline onClick={this.reset}>{i18n.reset}</Button>
-				</div>
-			</Form>
-		)
-	}	
-};
-const WrappedForm = createForm()(SubmitForm);
+// 		return (
+// 			<Form onSubmit={handleSubmit(this.submit)} horizontal>
+// 				<FormInputField
+// 					name="name"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					value="1"
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.nameValidationError}' }}
+// 				/>
+// 				<FormInputField
+// 					name="age"
+// 					type="text"
+// 					label="{i18n.age}:"
+// 					value="1"
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.ageValidationError}' }}
+// 				/>
+// 				<FormInputField
+// 					name="password"
+// 					type="text"
+// 					label="{i18n.password}:"
+// 					value="1"
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.pwValidationError}' }}
+// 				/>
+// 				<FormInputField
+// 					name="confirmPassword"
+// 					type="text"
+// 					label="{i18n.comfirmPw}:"
+// 					value="1"
+// 					validations={{
+// 						required: true,
+// 						isPasswordEqual(values, value) {
+// 							if (values.password !== value) {
+// 								return '{i18n.comfirmValidatiaonError1}';
+// 							}
+// 							return true;
+// 						}
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.comfirmValidatiaonError2}'
+// 					}}
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
+// 					<Button type="primary" outline onClick={this.initialize}>{i18n.initialize}</Button>
+// 					<Button type="primary" outline onClick={this.setFieldsValue}>{i18n.setValue}</Button>
+// 					<Button type="primary" outline onClick={this.reset}>{i18n.reset}</Button>
+// 				</div>
+// 			</Form>
+// 		)
+// 	}	
+// };
+// const WrappedForm = createForm()(SubmitForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

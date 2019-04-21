@@ -43,198 +43,198 @@ en-US:
 ---
 
 ```jsx
-import { Form, Icon, Pop, Notify } from 'zent';
-const {
-	Field,
-	FormInputField,
-	FormRadioGroupField,
-	createForm,
-	FormSection,
-	FieldArray,
-} = Form;
+// import { Form, Icon, Pop, Notify } from 'zent';
+// const {
+// 	Field,
+// 	FormInputField,
+// 	FormRadioGroupField,
+// 	createForm,
+// 	FormSection,
+// 	FieldArray,
+// } = Form;
 
-class Hobbies extends React.Component {
-	render() {
-		const { fields } = this.props;
-		return (
-			<ul>
-				<Button onClick={() => fields.push()} className="add-btn">
-					{i18n.addHobby}
-				</Button>
-				{fields.map((hobby, index, key) => {
-					return (
-						<li className="hobbies" key={`hobby${key}`}>
-							<FormInputField
-								name={`${hobby}`}
-								type="text"
-								label={`{i18n.hobby}${index + 1}:`}
-								validations={{ required: true }}
-								validationErrors={{ required: '{i18n.hobbyValidation}' }}
-							/>
-							<span className="del-btn" onClick={() => fields.remove(index)}>
-								{i18n.delHobby}
-							</span>
-						</li>
-					);
-				})}
-			</ul>
-		);
-	}
-}
+// class Hobbies extends React.Component {
+// 	render() {
+// 		const { fields } = this.props;
+// 		return (
+// 			<ul>
+// 				<Button onClick={() => fields.push()} className="add-btn">
+// 					{i18n.addHobby}
+// 				</Button>
+// 				{fields.map((hobby, index, key) => {
+// 					return (
+// 						<li className="hobbies" key={`hobby${key}`}>
+// 							<FormInputField
+// 								name={`${hobby}`}
+// 								type="text"
+// 								label={`{i18n.hobby}${index + 1}:`}
+// 								validations={{ required: true }}
+// 								validationErrors={{ required: '{i18n.hobbyValidation}' }}
+// 							/>
+// 							<span className="del-btn" onClick={() => fields.remove(index)}>
+// 								{i18n.delHobby}
+// 							</span>
+// 						</li>
+// 					);
+// 				})}
+// 			</ul>
+// 		);
+// 	}
+// }
 
-class MemberInfo extends React.Component {
-	render() {
-		const { fields, index } = this.props;
+// class MemberInfo extends React.Component {
+// 	render() {
+// 		const { fields, index } = this.props;
 
-		return (
-			<li className="members">
-				<div className="member-title">
-					<span>
-						{i18n.member}
-						{index + 1}
-					</span>
-					<Pop centerArrow trigger="hover" content="{i18n.delMember}">
-						<Icon
-							className="del-btn"
-							type="close-circle"
-							onClick={() => fields.remove(index)}
-						/>
-					</Pop>
-				</div>
-				<FormInputField
-					name="name"
-					type="text"
-					label="{i18n.name}:"
-					required
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.nameValidationError}' }}
-				/>
-				<FormRadioGroupField
-					name="sex"
-					label="{i18n.sex}:"
-					required
-					validations={{
-						required(values, value) {
-							return value !== '';
-						},
-					}}
-					validationErrors={{
-						required: '{i18n.sexValidationError}',
-					}}
-				>
-					<Radio value="1">{i18n.male}</Radio>
-					<Radio value="2">{i18n.female}</Radio>
-				</FormRadioGroupField>
-				<FieldArray name="hobbies" component={Hobbies} />
-			</li>
-		);
-	}
-}
+// 		return (
+// 			<li className="members">
+// 				<div className="member-title">
+// 					<span>
+// 						{i18n.member}
+// 						{index + 1}
+// 					</span>
+// 					<Pop centerArrow trigger="hover" content="{i18n.delMember}">
+// 						<Icon
+// 							className="del-btn"
+// 							type="close-circle"
+// 							onClick={() => fields.remove(index)}
+// 						/>
+// 					</Pop>
+// 				</div>
+// 				<FormInputField
+// 					name="name"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					required
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.nameValidationError}' }}
+// 				/>
+// 				<FormRadioGroupField
+// 					name="sex"
+// 					label="{i18n.sex}:"
+// 					required
+// 					validations={{
+// 						required(values, value) {
+// 							return value !== '';
+// 						},
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.sexValidationError}',
+// 					}}
+// 				>
+// 					<Radio value="1">{i18n.male}</Radio>
+// 					<Radio value="2">{i18n.female}</Radio>
+// 				</FormRadioGroupField>
+// 				<FieldArray name="hobbies" component={Hobbies} />
+// 			</li>
+// 		);
+// 	}
+// }
 
-class Members extends React.Component {
-	addOne = () => {
-		this.props.fields.push({});
-	};
-	addTwo = () => {
-		this.props.fields.push({
-			name: 'john',
-			sex: '1',
-			hobbies: ['H1', 'h4', 'h6'],
-		});
-		this.props.fields.push({});
-	};
-	render() {
-		const { fields } = this.props;
-		return (
-			<ul>
-				{fields.length < 3 && (
-					<Button onClick={this.addOne} className="add-btn">
-						{i18n.addMember}
-					</Button>
-				)}
-				{fields.length < 2 && (
-					<Button onClick={this.addTwo} className="add-btn">
-						{i18n.addTwoMembers}
-					</Button>
-				)}
-				{fields.map((member, index, key) => {
-					return (
-						<FormSection name={member} key={`member${key}`}>
-							<MemberInfo fields={fields} index={index} />
-						</FormSection>
-					);
-				})}
-			</ul>
-		);
-	}
-}
+// class Members extends React.Component {
+// 	addOne = () => {
+// 		this.props.fields.push({});
+// 	};
+// 	addTwo = () => {
+// 		this.props.fields.push({
+// 			name: 'john',
+// 			sex: '1',
+// 			hobbies: ['H1', 'h4', 'h6'],
+// 		});
+// 		this.props.fields.push({});
+// 	};
+// 	render() {
+// 		const { fields } = this.props;
+// 		return (
+// 			<ul>
+// 				{fields.length < 3 && (
+// 					<Button onClick={this.addOne} className="add-btn">
+// 						{i18n.addMember}
+// 					</Button>
+// 				)}
+// 				{fields.length < 2 && (
+// 					<Button onClick={this.addTwo} className="add-btn">
+// 						{i18n.addTwoMembers}
+// 					</Button>
+// 				)}
+// 				{fields.map((member, index, key) => {
+// 					return (
+// 						<FormSection name={member} key={`member${key}`}>
+// 							<MemberInfo fields={fields} index={index} />
+// 						</FormSection>
+// 					);
+// 				})}
+// 			</ul>
+// 		);
+// 	}
+// }
 
-class FieldForm extends React.Component {
-	componentDidMount() {
-		this.props.zentForm.initialize({
-			number: 233,
-			members: [
-				{
-					name: 'john',
-					sex: '1',
-					hobbies: ['HH2'],
-				},
-				{},
-			]
-		});
-	}
+// class FieldForm extends React.Component {
+// 	componentDidMount() {
+// 		this.props.zentForm.initialize({
+// 			number: 233,
+// 			members: [
+// 				{
+// 					name: 'john',
+// 					sex: '1',
+// 					hobbies: ['HH2'],
+// 				},
+// 				{},
+// 			]
+// 		});
+// 	}
 
-	submit = (values, zenForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// 	submit = (values, zenForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	setArray = () => {
-		this.props.zentForm.setFieldsValue({
-			number: 42,
-			members: [
-				{
-					name: 'john',
-					sex: '1',
-					hobbies: ['H1'],
-				},
-			],
-		});
-	};
+// 	setArray = () => {
+// 		this.props.zentForm.setFieldsValue({
+// 			number: 42,
+// 			members: [
+// 				{
+// 					name: 'john',
+// 					sex: '1',
+// 					hobbies: ['H1'],
+// 				},
+// 			],
+// 		});
+// 	};
 
-	render() {
-		const { handleSubmit } = this.props;
-		return (
-			<Form
-				horizontal
-				onSubmit={handleSubmit(this.submit)}
-				className="demo-form"
-			>
-				<FormInputField
-					name="number"
-					type="text"
-					label="{i18n.totalNumber}:"
-					required
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.totalNumberError}' }}
-				/>
-				<FieldArray
-					name="members"
-					component={Members}
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">
-						{i18n.submit}
-					</Button>
-					<Button onClick={this.setArray}>{i18n.setArray}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 	render() {
+// 		const { handleSubmit } = this.props;
+// 		return (
+// 			<Form
+// 				horizontal
+// 				onSubmit={handleSubmit(this.submit)}
+// 				className="demo-form"
+// 			>
+// 				<FormInputField
+// 					name="number"
+// 					type="text"
+// 					label="{i18n.totalNumber}:"
+// 					required
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.totalNumberError}' }}
+// 				/>
+// 				<FieldArray
+// 					name="members"
+// 					component={Members}
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">
+// 						{i18n.submit}
+// 					</Button>
+// 					<Button onClick={this.setArray}>{i18n.setArray}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(FieldForm);
+// const WrappedForm = createForm()(FieldForm);
 
-ReactDOM.render(<WrappedForm />, mountNode);
+ReactDOM.render(<div />, mountNode);
 ```
 
 <style>

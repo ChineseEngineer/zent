@@ -9,8 +9,11 @@ import {
   IFormFieldCommonProps,
   noopMapEventToValue,
   useField,
+  IFormFieldSharedProps,
 } from '../shared';
 import { formFirstError } from '../Error';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormDateRangeQuickPickerFieldProps
   extends Omit<IDateRangeQuickPickerProps, 'onChange' | 'value'>,
@@ -25,7 +28,7 @@ export const FormDateRangeQuickPickerField: React.FunctionComponent<
     IFormFieldCommonProps<DatePickers.RangeValue>
 > = props => {
   const [childProps, { error }] = useField<DatePickers.RangeValue>(
-    props,
+    props as Partial<IFormFieldSharedProps<DatePickers.RangeValue>>,
     dateDefaultValueFactory,
     noopMapEventToValue
   );
@@ -35,6 +38,9 @@ export const FormDateRangeQuickPickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -44,7 +50,11 @@ export const FormDateRangeQuickPickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <DateRangeQuickPicker {...otherProps} {...childProps} />
+      <DateRangeQuickPicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

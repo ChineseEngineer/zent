@@ -33,96 +33,96 @@ en-US:
 ---
 
 ```jsx
-import { Form, Button, Notify } from 'zent';
+// import { Form, Button, Notify } from 'zent';
 
-const { FormInputField, createForm, SubmissionError } = Form;
+// const { FormInputField, createForm, SubmissionError } = Form;
 
-function onSubmitFail(error) {
-	Notify.error(error);
-}
+// function onSubmitFail(error) {
+// 	Notify.error(error);
+// }
 
-function onSubmitSuccess(result) {
-	Notify.success(result);
-}
+// function onSubmitSuccess(result) {
+// 	Notify.success(result);
+// }
 
-class SubmitForm extends React.Component {
-	submit = (values, zentForm) => {
-		const promise = new Promise((resolve) => setTimeout(resolve, 1000));
+// class SubmitForm extends React.Component {
+// 	submit = (values, zentForm) => {
+// 		const promise = new Promise((resolve) => setTimeout(resolve, 1000));
 
-		return promise.then(() => {
-			const random = Math.random() * 10;
-			if (random > 4) {
-				zentForm.setFieldExternalErrors({
-					user: '{i18n.asyncValidationError}'
-				});
-				// {i18n.comment1}
-				throw new SubmissionError('{i18n.asyncValidationError}');
-			} else {
-				// {i18n.comment2}
-				return '{i18n.submitSuccess}';
-			}
-		});
-	};
+// 		return promise.then(() => {
+// 			const random = Math.random() * 10;
+// 			if (random > 4) {
+// 				zentForm.setFieldExternalErrors({
+// 					user: '{i18n.asyncValidationError}'
+// 				});
+// 				// {i18n.comment1}
+// 				throw new SubmissionError('{i18n.asyncValidationError}');
+// 			} else {
+// 				// {i18n.comment2}
+// 				return '{i18n.submitSuccess}';
+// 			}
+// 		});
+// 	};
 
-	resetForm = () => {
-		const { zentForm } = this.props;
+// 	resetForm = () => {
+// 		const { zentForm } = this.props;
 		
-		zentForm.resetFieldsValue();
-	};
+// 		zentForm.resetFieldsValue();
+// 	};
 	
-	render() {
-		const { handleSubmit, zentForm } = this.props;
-		const isSubmitting = zentForm.isSubmitting();
+// 	render() {
+// 		const { handleSubmit, zentForm } = this.props;
+// 		const isSubmitting = zentForm.isSubmitting();
 
-		return (
-			<Form onSubmit={handleSubmit(this.submit)} horizontal>
-				<FormInputField
-					name="user"
-					type="text"
-					label="{i18n.name}:"
-					value="111"
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.nameValidationError}' }}
-				/>
-				<FormInputField
-					name="password"
-					type="password"
-					label="{i18n.password}:"
-					value="222"
-					validations={{ required: true }}
-					validationErrors={{ required: '{i18n.pwValidationError}' }}
-				/>
-				<FormInputField
-					name="confirmPassword"
-					type="password"
-					label="{i18n.comfirmPw}:"
-					value="222"
-					validations={{
-						required: true,
-						isPasswordEqual(values, value) {
-							if (values.password !== value) {
-								return '{i18n.comfirmValidatiaonError1}';
-							}
-							return true;
-						}
-					}}
-					validationErrors={{
-						required: '{i18n.comfirmValidatiaonError2}'
-					}}
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
-					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 		return (
+// 			<Form onSubmit={handleSubmit(this.submit)} horizontal>
+// 				<FormInputField
+// 					name="user"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					value="111"
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.nameValidationError}' }}
+// 				/>
+// 				<FormInputField
+// 					name="password"
+// 					type="password"
+// 					label="{i18n.password}:"
+// 					value="222"
+// 					validations={{ required: true }}
+// 					validationErrors={{ required: '{i18n.pwValidationError}' }}
+// 				/>
+// 				<FormInputField
+// 					name="confirmPassword"
+// 					type="password"
+// 					label="{i18n.comfirmPw}:"
+// 					value="222"
+// 					validations={{
+// 						required: true,
+// 						isPasswordEqual(values, value) {
+// 							if (values.password !== value) {
+// 								return '{i18n.comfirmValidatiaonError1}';
+// 							}
+// 							return true;
+// 						}
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.comfirmValidatiaonError2}'
+// 					}}
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
+// 					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(SubmitForm);
+// const WrappedForm = createForm()(SubmitForm);
 
 ReactDOM.render(
-	<WrappedForm scrollToError onSubmitFail={onSubmitFail} onSubmitSuccess={onSubmitSuccess} />
+	<div />
 	, mountNode
 )
 ```

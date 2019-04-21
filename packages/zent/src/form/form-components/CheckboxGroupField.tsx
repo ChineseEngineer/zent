@@ -7,7 +7,10 @@ import {
   useField,
   IFormFieldCommonProps,
   noopMapEventToValue,
+  IFormFieldSharedProps,
 } from '../shared';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormCheckboxGroupFieldProps<T>
   extends Omit<ICheckboxGroupProps, 'value' | 'onChange'>,
@@ -15,17 +18,24 @@ export interface IFormCheckboxGroupFieldProps<T>
   children?: React.ReactNode;
 }
 
-export function FormCheckboxGroupProps<T>(
+export function FormCheckboxGroupField<T>(
   props: IFormCheckboxGroupFieldProps<T> & IFormFieldCommonProps<T[]>
 ) {
-  const [childProps, { error }] = useField(props, [], noopMapEventToValue);
+  const [childProps, { error }] = useField<unknown[], unknown[]>(
+    props as IFormFieldSharedProps<unknown[]>,
+    [],
+    noopMapEventToValue
+  );
   const {
     className,
     style,
     label,
     prefix,
-    children,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
+    children,
     ...otherProps
   } = props;
   return (
@@ -35,9 +45,13 @@ export function FormCheckboxGroupProps<T>(
       label={label}
       prefix={prefix}
     >
-      <CheckboxGroup {...otherProps} {...childProps}>
+      <CheckboxGroup prefix={prefix} {...otherProps} {...childProps}>
         {children}
       </CheckboxGroup>
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

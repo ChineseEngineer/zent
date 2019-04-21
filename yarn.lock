@@ -1070,17 +1070,10 @@
   resolved "https://registry.yarnpkg.com/@types/raf/-/raf-3.4.0.tgz#2b72cbd55405e071f1c4d29992638e022b20acc2"
   integrity sha512-taW5/WYqo36N7V39oYyHP9Ipfd5pNFvGTIQsNGj86xV88YQ7GnI30/yMfKDF7Zgin0m3e+ikX88FvImnK4RjGw==
 
-"@types/react-dom@^16.7.0":
+"@types/react-dom@^16.8.0", "@types/react-dom@^16.8.2":
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.4.tgz#7fb7ba368857c7aa0f4e4511c4710ca2c5a12a88"
   integrity sha512-eIRpEW73DCzPIMaNBDP5pPIpK1KXyZwNgfxiVagb5iGiz6da+9A5hslSX6GAQKdO7SayVCS/Fr2kjqprgAvkfA==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-dom@^16.8.2":
-  version "16.8.2"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.2.tgz#9bd7d33f908b243ff0692846ef36c81d4941ad12"
-  integrity sha512-MX7n1wq3G/De15RGAAqnmidzhr2Y9O/ClxPxyqaNg96pGyeXUYPSvujgzEVpLo9oIP4Wn1UETl+rxTN02KEpBw==
   dependencies:
     "@types/react" "*"
 
@@ -1092,21 +1085,13 @@
     "@types/react" "*"
 
 "@types/react-transition-group@^2.0.16":
-  version "2.0.16"
-  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.0.16.tgz#2dcb9e396ab385ee19c4af1c9caa469a14cd042f"
-  integrity sha512-FUJEx2BGJPU1qVQoWd9v7wpOwnCPTWhcE4iTaU5prry9SvwiI11lCXOci8Nz9cM/Fuf650l7Skg6nlVeCYjPFA==
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.9.0.tgz#2a74a885432d673a93a2c93c34ce5dbf9f1426f8"
+  integrity sha512-hP7vUaZMVSWKxo133P8U51U6UZ7+pbY+eAQb8+p6SZ2rB1rj3mOTDgTzhhi+R2SCB4S+sWekAAGoxdiZPG0ReQ==
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.7":
-  version "16.8.8"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.8.tgz#4b60a469fd2469f7aa6eaa0f8cfbc51f6d76e662"
-  integrity sha512-xwEvyet96u7WnB96kqY0yY7qxx/pEpU51QeACkKFtrgjjXITQn0oO1iwPEraXVgh10ZFPix7gs1R4OJXF7P5sg==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^2.2.0"
-
-"@types/react@^16.7.0":
+"@types/react@*", "@types/react@^16.8.0", "@types/react@^16.8.7":
   version "16.8.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.13.tgz#a82b15aad9ab91c40edca0d6889b7745ae24f053"
   integrity sha512-otJ4ntMuHGrvm67CdDJMAls4WqotmAmW0g3HmWi9LCjSWXrxoXY/nHXrtmMfvPEEmGFNm6NdgMsJmnfH820Qaw==
@@ -4986,13 +4971,13 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@0.2.0-beta.1:
-  version "0.2.0-beta.1"
-  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.2.0-beta.1.tgz#52fd3f4defb3f267573cd71c321c045c8b6c189c"
-  integrity sha512-9R0x4iirQrV/+C5r0tKOgm1G0Vo/JW2aFxdq3C6ucMAAVjbWGg6PumTxe4zjkckpsNm3Ap0etrMJm3gBwjmsFQ==
+formulr@0.2.0-beta.5:
+  version "0.2.0-beta.5"
+  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.2.0-beta.5.tgz#b1107559c208c81ff0e8d06af06a76c92799eed0"
+  integrity sha512-M04S1N3tQOGG8eMogi4SEc3YU9cTBLh9pxXxJTM6SQP+a7Ap4gzuhIEo3z2LbUMQAFiCc2bc6u0bjaEPn62AIQ==
   dependencies:
-    "@types/react" "^16.7.0"
-    "@types/react-dom" "^16.7.0"
+    "@types/react" "^16.8.0"
+    "@types/react-dom" "^16.8.0"
     react "^16.8.0"
     react-dom "^16.8.0"
     rxjs "^6.4.0"
@@ -10233,17 +10218,7 @@ react-beautiful-dnd@^10.0.4:
     redux "^4.0.1"
     tiny-invariant "^1.0.3"
 
-react-dom@16.8.x:
-  version "16.8.4"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
-  integrity sha512-Ob2wK7XG2tUDt7ps7LtLzGYYB6DXMCLj0G5fO6WeEICtT4/HdpOi7W/xLzZnR6RCG1tYza60nMdqtxzA8FaPJQ==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.13.4"
-
-react-dom@^16.8.0:
+react-dom@16.8.x, react-dom@^16.8.0:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
@@ -10371,17 +10346,7 @@ react-transition-group@^2.6.0:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@16.8.x:
-  version "16.8.4"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
-  integrity sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.13.4"
-
-react@^16.8.0:
+react@16.8.x, react@^16.8.0:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
@@ -12387,10 +12352,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.3.3, typescript@^3.3.3333:
-  version "3.3.3333"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.3333.tgz#171b2c5af66c59e9431199117a3bcadc66fdcfd6"
-  integrity sha512-JjSKsAfuHBE/fB2oZ8NxtRTk5iGcg6hkYXMnZ3Wc+b2RSqejEqTaem11mHASMnFilHrax3sLK0GDzcJrekZYLw==
+typescript@^3.4.0:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.4.tgz#aac4a08abecab8091a75f10842ffa0631818f785"
+  integrity sha512-xt5RsIRCEaf6+j9AyOBgvVuAec0i92rgCaS3S+UVf5Z/vF2Hvtsw08wtUTJqp4djwznoAgjSxeCcU4r+CcDBJA==
 
 uglify-js@3.4.x, uglify-js@^3.1.4:
   version "3.4.9"

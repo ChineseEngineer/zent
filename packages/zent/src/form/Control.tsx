@@ -9,15 +9,22 @@ export interface IFormControlProps<T> {
   label?: React.ReactNode;
   prefix?: string;
   children?: React.ReactNode;
+  required?: boolean;
 }
 
 export const FormControl = React.forwardRef<
   HTMLDivElement,
   IFormControlProps<unknown>
->(({ className, style, label, prefix, children }) => {
+>(({ className, style, label, prefix = 'zent', children, required }, ref) => {
   return (
-    <div className={cx(`${prefix}-form-control`, className)} style={style}>
-      <Label>{label}</Label>
+    <div
+      ref={ref}
+      className={cx(`${prefix}-form-control`, className)}
+      style={style}
+    >
+      <Label prefix={prefix} required={required}>
+        {label}
+      </Label>
       <div className={cx(`${prefix}-form-control-content`)}>{children}</div>
     </div>
   );

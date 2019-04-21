@@ -21,88 +21,88 @@ en-US:
 ---
 
 ```jsx
-import { Form, Notify } from 'zent';
+// import { Form, Notify } from 'zent';
 
-const { Field, FormInputField, createForm } = Form;
+// const { Field, FormInputField, createForm } = Form;
 
-class FormattedForm extends React.Component {
-	submit = (values) => {
-		Notify.success(JSON.stringify(values));
-	}
+// class FormattedForm extends React.Component {
+// 	submit = (values) => {
+// 		Notify.success(JSON.stringify(values));
+// 	}
 
-	render() {
-		const { handleSubmit, zentForm } = this.props;
+// 	render() {
+// 		const { handleSubmit, zentForm } = this.props;
 
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<FormInputField
-					name="field1"
-					type="text"
-					label="{i18n.validationOnChange}:"
-					validations={{ 
-						required: true,
-						matchRegex: /^[a-zA-Z]+$/
-					}}
-					validationErrors={{
-						required: '{i18n.fieldError1}',
-						matchRegex: '{i18n.fieldError2}'
-					}}
-				/>
-				<FormInputField
-					name="field2"
-					type="text"
-					label="{i18n.validationOnBlur}:"
-					validateOnChange={false}
-					validations={{ 
-						required: true,
-						matchRegex: /^[a-zA-Z]+$/
-					}}
-					validationErrors={{
-						required: '{i18n.fieldError1}',
-						matchRegex: '{i18n.fieldError2}'
-					}}
-				/>
-				<FormInputField
-					name="field3"
-					type="text"
-					label="{i18n.validationOnSubmit}:"
-					validateOnChange={false}
-					validateOnBlur={false}
-					validations={{
-						required: true,
-						matchRegex: /^[a-zA-Z]+$/
-					}}
-					validationErrors={{
-						required: '{i18n.fieldError1}',
-						matchRegex: '{i18n.fieldError2}'
-					}}
-				/>
-				<FormInputField
-					name="field4"
-					type="text"
-					label="{i18n.customDisplayError}:"
-					displayError={zentForm.isFormSubmitFail() && !!zentForm.getFieldError('field4')}
-					validations={{
-						required: true,
-						matchRegex: /^[a-zA-Z]+$/
-					}}
-					validationErrors={{
-						required: '{i18n.fieldError1}',
-						matchRegex: '{i18n.fieldError2}'
-					}}
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<FormInputField
+// 					name="field1"
+// 					type="text"
+// 					label="{i18n.validationOnChange}:"
+// 					validations={{ 
+// 						required: true,
+// 						matchRegex: /^[a-zA-Z]+$/
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.fieldError1}',
+// 						matchRegex: '{i18n.fieldError2}'
+// 					}}
+// 				/>
+// 				<FormInputField
+// 					name="field2"
+// 					type="text"
+// 					label="{i18n.validationOnBlur}:"
+// 					validateOnChange={false}
+// 					validations={{ 
+// 						required: true,
+// 						matchRegex: /^[a-zA-Z]+$/
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.fieldError1}',
+// 						matchRegex: '{i18n.fieldError2}'
+// 					}}
+// 				/>
+// 				<FormInputField
+// 					name="field3"
+// 					type="text"
+// 					label="{i18n.validationOnSubmit}:"
+// 					validateOnChange={false}
+// 					validateOnBlur={false}
+// 					validations={{
+// 						required: true,
+// 						matchRegex: /^[a-zA-Z]+$/
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.fieldError1}',
+// 						matchRegex: '{i18n.fieldError2}'
+// 					}}
+// 				/>
+// 				<FormInputField
+// 					name="field4"
+// 					type="text"
+// 					label="{i18n.customDisplayError}:"
+// 					displayError={zentForm.isFormSubmitFail() && !!zentForm.getFieldError('field4')}
+// 					validations={{
+// 						required: true,
+// 						matchRegex: /^[a-zA-Z]+$/
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.fieldError1}',
+// 						matchRegex: '{i18n.fieldError2}'
+// 					}}
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(FormattedForm);
+// const WrappedForm = createForm()(FormattedForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

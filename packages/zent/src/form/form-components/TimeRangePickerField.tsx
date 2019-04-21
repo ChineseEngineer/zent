@@ -11,6 +11,8 @@ import { formFirstError } from '../Error';
 import TimeRangePicker, {
   ITimeRangePickerProps,
 } from '../../datetimepicker/TimeRangePicker';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormTimeRangePickerFieldProps
   extends Omit<ITimeRangePickerProps, 'onChange' | 'value'>,
@@ -35,6 +37,9 @@ export const FormTimeRangePickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -44,7 +49,11 @@ export const FormTimeRangePickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <TimeRangePicker {...otherProps} {...childProps} />
+      <TimeRangePicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

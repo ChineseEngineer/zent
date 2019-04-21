@@ -10,6 +10,8 @@ import {
 } from '../shared';
 import { formFirstError } from '../Error';
 import TimePicker, { ITimePickerProps } from '../../datetimepicker/TimePicker';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormTimePickerField
   extends Omit<ITimePickerProps, 'onChange' | 'value'>,
@@ -29,6 +31,9 @@ export const FormTimePickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -38,7 +43,11 @@ export const FormTimePickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <TimePicker {...otherProps} {...childProps} />
+      <TimePicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

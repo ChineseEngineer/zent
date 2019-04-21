@@ -2,7 +2,6 @@ import {
   IUseField,
   FieldModel,
   useField as superUseField,
-  IFieldMeta,
   IValidator,
   IErrors,
 } from 'formulr';
@@ -33,6 +32,8 @@ export type IFormFieldModelProps<T> =
 
 export interface IFormComponentCommonPropsBase<T> {
   renderError?: IRenderError<T>;
+  description?: ReactNode;
+  notice?: ReactNode;
 }
 
 export type IFormFieldCommonProps<T> = IFormFieldModelProps<T> &
@@ -47,7 +48,7 @@ export interface IZentFormChildProps<Value, Event> {
   onCompositionEnd: React.CompositionEventHandler;
 }
 
-interface IFormFieldSharedProps<Value, Event = Value> {
+export interface IFormFieldSharedProps<Value, Event = Value> {
   onChange(e: Event): void;
   onFocus: React.FocusEventHandler;
   onBlur: React.FocusEventHandler;
@@ -60,7 +61,6 @@ interface IFormFieldSharedProps<Value, Event = Value> {
 
 export type IZentUseField<Value, Event> = [
   IZentFormChildProps<Value, Event>,
-  IFieldMeta<Value>,
   FieldModel<Value>
 ];
 
@@ -89,7 +89,7 @@ export function useField<Value, Event = Value>(
   } else {
     field = superUseField<Value>(props.model as FieldModel<Value>);
   }
-  const [childProps, meta, model] = field;
+  const [childProps, model] = field;
   const propsRef = useRef(props);
   propsRef.current = props;
   const proxy = useMemo<IZentFormChildProps<Value, Event>>(
@@ -125,7 +125,7 @@ export function useField<Value, Event = Value>(
     [childProps]
   );
   proxy.value = childProps.value;
-  return [proxy, meta, model];
+  return [proxy, model];
 }
 
 export function dateDefaultValueFactory() {

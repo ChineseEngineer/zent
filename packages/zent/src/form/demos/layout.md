@@ -13,61 +13,61 @@ en-US:
 ---
 
 ```jsx
-import { Form, Radio, Notify } from 'zent';
-const { Field, FormInputField, createForm } = Form;
+// import { Form, Radio, Notify } from 'zent';
+// const { Field, FormInputField, createForm } = Form;
 
-const RadioGroup = Radio.Group;
+// const RadioGroup = Radio.Group;
 
-class FieldForm extends React.Component {
-	state = {
-		formLayout: 'vertical'
-	}
+// class FieldForm extends React.Component {
+// 	state = {
+// 		formLayout: 'vertical'
+// 	}
 
-	onRadioChange = (e) => {
-		this.setState({
-			formLayout: e.target.value
-		})
-	}
+// 	onRadioChange = (e) => {
+// 		this.setState({
+// 			formLayout: e.target.value
+// 		})
+// 	}
 
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	render() {
-		const { formLayout } = this.state;
-		const { handleSubmit } = this.props;
-		return (
-			<div>
-				<RadioGroup value={formLayout} onChange={this.onRadioChange}  className="form-layout">
-					<Radio value="vertical">vertical</Radio>
-					<Radio value="horizontal">horizontal</Radio>
-					<Radio value="inline">inline</Radio>
-				</RadioGroup>
-				<Form inline={formLayout === 'inline'} horizontal={formLayout === 'horizontal'} onSubmit={handleSubmit(this.submit)}>
-					<FormInputField
-						name="name"
-						type="text"
-						label="{i18n.name}:"
-						value=""
-					/>
-					<FormInputField
-						name="name2"
-						type="text"
-						label="{i18n.name2}:"
-						value=""
-					/>
-					<div className="zent-form__form-actions">
-						<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-					</div>
-				</Form>
-			</div>
-		);
-	}
-};
-const WrappedForm = createForm()(FieldForm);
+// 	render() {
+// 		const { formLayout } = this.state;
+// 		const { handleSubmit } = this.props;
+// 		return (
+// 			<div>
+// 				<RadioGroup value={formLayout} onChange={this.onRadioChange}  className="form-layout">
+// 					<Radio value="vertical">vertical</Radio>
+// 					<Radio value="horizontal">horizontal</Radio>
+// 					<Radio value="inline">inline</Radio>
+// 				</RadioGroup>
+// 				<Form inline={formLayout === 'inline'} horizontal={formLayout === 'horizontal'} onSubmit={handleSubmit(this.submit)}>
+// 					<FormInputField
+// 						name="name"
+// 						type="text"
+// 						label="{i18n.name}:"
+// 						value=""
+// 					/>
+// 					<FormInputField
+// 						name="name2"
+// 						type="text"
+// 						label="{i18n.name2}:"
+// 						value=""
+// 					/>
+// 					<div className="zent-form__form-actions">
+// 						<Button type="primary" htmlType="submit">{i18n.submit}</Button>
+// 					</div>
+// 				</Form>
+// 			</div>
+// 		);
+// 	}
+// };
+// const WrappedForm = createForm()(FieldForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

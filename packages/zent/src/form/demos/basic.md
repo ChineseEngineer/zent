@@ -21,48 +21,43 @@ en-US:
 ---
 
 ```jsx
-import { Form, Icon, Pop } from 'zent';
-const { Field, FormInputField, createForm } = Form;
+import { useForm, FormInputField, Form, FormStrategy, Pop, Icon } from 'zent';
 
-class FieldForm extends React.Component {
-	render() {
-		return (
-			<Form horizontal>
-				<FormInputField
-					name="name"
-					type="text"
-					label={
-						<span>
-							{i18n.name}&nbsp;
-							<Pop trigger="hover" content="{i18n.nameTip}" centerArrow>
-								<Icon type="error-circle-o" />
-							</Pop>:
-						</span>
-					}
-					helpDesc="{i18n.nameHelpdesc}"
-					required
-				/>
-				<FormInputField
-					name="password"
-					type="password"
-					label="{i18n.password}:"
-					helpDesc={
-						<span>
-							{i18n.pwHelpDesc}
-							<a href="https://youzan.com" target="_blank">
-								{i18n.link}
-							</a>
-						</span>
-					}
-					notice="{i18n.notice}"
-					required
-				/>
-			</Form>
-		);
-	}
+function Component() {
+	const form = useForm(FormStrategy.View);
+	return (
+		<Form form={form}>
+			<FormInputField
+				name="name"
+				label={
+					<span>
+						{i18n.name}&nbsp;
+						<Pop trigger="hover" content="{i18n.nameTip}" centerArrow>
+							<Icon type="error-circle-o" />
+						</Pop>:
+					</span>
+				}
+				description="{i18n.nameHelpdesc}"
+				required
+			/>
+			<FormInputField
+				name="password"
+				type="password"
+				label="{i18n.password}:"
+				description={
+					<span>
+						{i18n.pwHelpDesc}
+						<a href="https://youzan.com" target="_blank">
+							{i18n.link}
+						</a>
+					</span>
+				}
+				notice="{i18n.notice}"
+				required
+			/>
+		</Form>
+	);
 }
 
-const WrappedForm = createForm()(FieldForm);
-
-ReactDOM.render(<WrappedForm />, mountNode);
+ReactDOM.render(<Component />, mountNode);
 ```

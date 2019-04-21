@@ -51,7 +51,7 @@
     "date-fns": "^1.29.0",
     "enquire.js": "^2.1.6",
     "fecha": "^3.0.2",
-    "formulr": "0.2.0-beta.1",
+    "formulr": "0.2.0-beta.5",
     "keycode": "^2.1.9",
     "lodash-es": "^4.17.11",
     "memoize-one": "^5.0.0",
@@ -82,6 +82,6 @@
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "tslint": "^5.14.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.4.0"
   }
 }

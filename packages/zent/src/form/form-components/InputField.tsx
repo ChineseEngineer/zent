@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Omit } from 'utility-types';
 
 import { FormControl, IFormControlProps } from '../Control';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 import Input, { IInputProps, IInputChangeEvent } from '../../input';
 import { formFirstError } from '../Error';
 import { useField, IFormFieldCommonProps } from '../shared';
@@ -26,6 +28,9 @@ export const FormInputField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -34,8 +39,13 @@ export const FormInputField: React.FunctionComponent<
       style={style}
       label={label}
       prefix={prefix}
+      required={required}
     >
-      <Input {...otherProps} {...childProps} />
+      <Input prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

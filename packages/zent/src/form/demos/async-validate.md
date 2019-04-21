@@ -21,75 +21,75 @@ en-US:
 ---
 
 ```jsx
-import { Form, Notify } from 'zent';
-const { Field, FormInputField, createForm } = Form;
+// import { Form, Notify } from 'zent';
+// const { Field, FormInputField, createForm } = Form;
 
-class AsyncForm extends React.Component {
-	render() {
-		const { handleSubmit, zentForm } = this.props;
-		const isSubmitting = zentForm.isSubmitting();
+// class AsyncForm extends React.Component {
+// 	render() {
+// 		const { handleSubmit, zentForm } = this.props;
+// 		const isSubmitting = zentForm.isSubmitting();
 
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<FormInputField
-					name="name"
-					type="text"
-					label="{i18n.name}:"
-					value="pangxie"
-					validations={{
-						required: true,
-						matchRegex: /[a-zA-Z]+/
-					}}
-					validationErrors={{
-						required: '{i18n.validationError}',
-						matchRegex: '{i18n.validationError2}'
-					}}
-					asyncValidation={this.asyncValidation}
-					helpDesc="{i18n.tipOne}"
-				/>
-				<FormInputField
-					name="name2"
-					type="text"
-					label="{i18n.name}:"
-					value="pangxie2"
-					asyncValidation={this.asyncValidation2}
-					helpDesc="{i18n.tipTwo}"
-				/>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
-				</div>
-			</Form>
-		);
-	}
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<FormInputField
+// 					name="name"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					value="pangxie"
+// 					validations={{
+// 						required: true,
+// 						matchRegex: /[a-zA-Z]+/
+// 					}}
+// 					validationErrors={{
+// 						required: '{i18n.validationError}',
+// 						matchRegex: '{i18n.validationError2}'
+// 					}}
+// 					asyncValidation={this.asyncValidation}
+// 					helpDesc="{i18n.tipOne}"
+// 				/>
+// 				<FormInputField
+// 					name="name2"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					value="pangxie2"
+// 					asyncValidation={this.asyncValidation2}
+// 					helpDesc="{i18n.tipTwo}"
+// 				/>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit" loading={isSubmitting}>{i18n.submit}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
 
-	asyncValidation = (values, value) => {
-		return new Promise((resolve, reject) => setTimeout(() => {
-			if (value === 'pangxie') {
-				reject('pangxie {i18n.asyncValidationError}');
-			} else {
-				resolve();
-			}
-		}, 1000));
-	}
+// 	asyncValidation = (values, value) => {
+// 		return new Promise((resolve, reject) => setTimeout(() => {
+// 			if (value === 'pangxie') {
+// 				reject('pangxie {i18n.asyncValidationError}');
+// 			} else {
+// 				resolve();
+// 			}
+// 		}, 1000));
+// 	}
 	
-	asyncValidation2 = (values, value) => {
-		return new Promise((resolve, reject) => setTimeout(() => {
-			if (value === 'pangxie2') {
-				reject('pangxie2 {i18n.asyncValidationError}');
-			} else {
-				resolve();
-			}
-		}, 1000));
-	}
+// 	asyncValidation2 = (values, value) => {
+// 		return new Promise((resolve, reject) => setTimeout(() => {
+// 			if (value === 'pangxie2') {
+// 				reject('pangxie2 {i18n.asyncValidationError}');
+// 			} else {
+// 				resolve();
+// 			}
+// 		}, 1000));
+// 	}
 	
-	submit = (values) => {
-		Notify.success(JSON.stringify(values));
-	}
-};
-const WrappedForm = createForm()(AsyncForm);
+// 	submit = (values) => {
+// 		Notify.success(JSON.stringify(values));
+// 	}
+// };
+// const WrappedForm = createForm()(AsyncForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

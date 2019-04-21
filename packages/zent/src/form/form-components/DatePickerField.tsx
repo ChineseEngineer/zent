@@ -10,6 +10,8 @@ import {
   dateDefaultValueFactory,
 } from '../shared';
 import { formFirstError } from '../Error';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormDatePickerField
   extends Omit<IDatePickerProps, 'onChange' | 'value'>,
@@ -29,6 +31,9 @@ export const FormDatePickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -38,7 +43,11 @@ export const FormDatePickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <DatePicker {...otherProps} {...childProps} />
+      <DatePicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

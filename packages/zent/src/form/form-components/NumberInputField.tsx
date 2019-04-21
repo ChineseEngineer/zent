@@ -9,12 +9,14 @@ import {
   useField,
   noopMapEventToValue,
 } from '../shared';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormNumberInputFieldProps
   extends Omit<INumberInputProps, 'onChange' | 'value' | 'name'>,
     IFormControlProps<string> {}
 
-export const NumberInputField: React.FunctionComponent<
+export const FormNumberInputField: React.FunctionComponent<
   IFormNumberInputFieldProps & IFormFieldCommonProps<string>
 > = props => {
   const [childProps, { error }] = useField(props, '', noopMapEventToValue);
@@ -24,6 +26,9 @@ export const NumberInputField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -33,7 +38,11 @@ export const NumberInputField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <NumberInput {...otherProps} {...childProps} />
+      <NumberInput prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

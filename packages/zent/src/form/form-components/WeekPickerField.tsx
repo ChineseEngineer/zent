@@ -8,6 +8,8 @@ import {
 } from '../shared';
 import { formFirstError } from '../Error';
 import WeekPicker, { IWeekPickerProps } from '../../datetimepicker/WeekPicker';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormWeekPickerFieldProps
   extends Omit<IWeekPickerProps, 'value' | 'onChange'>,
@@ -23,6 +25,9 @@ export const FormWeekPickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -32,7 +37,11 @@ export const FormWeekPickerField: React.FunctionComponent<
       label={label}
       prefix={prefix}
     >
-      <WeekPicker {...otherProps} {...childProps} />
+      <WeekPicker prefix={prefix} {...otherProps} {...childProps} />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

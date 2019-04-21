@@ -7,7 +7,10 @@ import {
   useField,
   IFormFieldCommonProps,
   noopMapEventToValue,
+  IFormFieldSharedProps,
 } from '../shared';
+import { FormDescription } from '../Description';
+import { FormNotice } from '../Notice';
 
 export interface IFormColorPickerFieldProps
   extends Omit<IColorPickerProps, 'color' | 'onChange'>,
@@ -17,7 +20,7 @@ export const FormColorPickerField: React.FunctionComponent<
   IFormColorPickerFieldProps & IFormFieldCommonProps<string>
 > = props => {
   const [{ value, ...passedProps }, { error }] = useField<string>(
-    props,
+    props as IFormFieldSharedProps<string>,
     '',
     noopMapEventToValue
   );
@@ -27,6 +30,9 @@ export const FormColorPickerField: React.FunctionComponent<
     label,
     prefix,
     renderError = formFirstError,
+    required,
+    description,
+    notice,
     ...otherProps
   } = props;
   return (
@@ -35,8 +41,18 @@ export const FormColorPickerField: React.FunctionComponent<
       style={style}
       label={label}
       prefix={prefix}
+      required={required}
     >
-      <ColorPicker {...otherProps} {...passedProps} color={value} />
+      <ColorPicker
+        prefix={prefix}
+        {...otherProps}
+        {...passedProps}
+        color={value}
+      />
+      {!!notice && <FormNotice prefix={prefix}>{notice}</FormNotice>}
+      {!!description && (
+        <FormDescription prefix={prefix}>{description}</FormDescription>
+      )}
       {renderError(error)}
     </FormControl>
   );

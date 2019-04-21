@@ -64,145 +64,145 @@ en-US:
 
 
 ```jsx
-import { Form, Radio, Checkbox, Notify } from 'zent';
-const { Field, FormInputField, FormCheckboxGroupField, createForm } = Form;
+// import { Form, Radio, Checkbox, Notify } from 'zent';
+// const { Field, FormInputField, FormCheckboxGroupField, createForm } = Form;
 
-class FieldForm extends React.Component {
-	state = {
-		checkedList: []
-	}
+// class FieldForm extends React.Component {
+// 	state = {
+// 		checkedList: []
+// 	}
 
-	onCheckboxChange = (checkedList) => {
-		this.setState({ checkedList });
-	}
+// 	onCheckboxChange = (checkedList) => {
+// 		this.setState({ checkedList });
+// 	}
 
-	submit = (values, zentForm) => {
-		Notify.success(JSON.stringify(values));
-	};
+// 	submit = (values, zentForm) => {
+// 		Notify.success(JSON.stringify(values));
+// 	};
 
-	resetForm = () => {
-		this.props.zentForm.resetFieldsValue();
-	}
+// 	resetForm = () => {
+// 		this.props.zentForm.resetFieldsValue();
+// 	}
 
-	render() {
-		const { handleSubmit } =this.props;
+// 	render() {
+// 		const { handleSubmit } =this.props;
 
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<FormInputField
-					name="name"
-					type="text"
-					label="{i18n.name}:"
-					required
-					helpDesc="{i18n.nameHelpdesc}"
-					validations={{
-						required: true, 
-						matchRegex: /^[a-zA-Z]+$/
-					}} 
-					validationErrors={{
-						required: '{i18n.nameValidationError1}',
-						matchRegex: '{i18n.nameValidationError2}'
-					}} 
-				/>
-				<FormInputField
-					name="password"
-					type="text"
-					label="{i18n.password}:"
-					required
-					helpDesc="{i18n.pwHelpdesc}"
-					validations={{
-						required: true
-					}} 
-					validationErrors={{
-						required: '{i18n.pwValidationError}'
-					}} 
-				/>
-				<FormInputField
-					name="confirmPw"
-					type="text"
-					label="{i18n.comfirmPw}:"
-					required
-					helpDesc="{i18n.comfirmPwHelpdesc}"
-					validations={{
-						equalsField: 'password'
-					}} 
-					validationErrors={{
-						equalsField: '{i18n.comfirmValidatiaonError}'
-					}} 
-				/>
-				<FormInputField
-					name="email"
-					type="text"
-					label="{i18n.email}:"
-					helpDesc="{i18n.emailHelodesc}"
-					validations={{
-						isEmail: true
-					}} 
-					validationErrors={{
-						isEmail: '{i18n.emailValidationError}'
-					}} 
-				/>
-				<FormInputField
-					name="url"
-					type="text"
-					label="{i18n.url}:"
-					helpDesc="{i18n.urlHelpdesc}"
-					validations={{
-						isUrl: true
-					}} 
-					validationErrors={{
-						isUrl: '{i18n.urlValidationError}'
-					}}
-				/>
-				<FormInputField
-					name="id"
-					type="text"
-					label="{i18n.id}:"
-					required
-					helpDesc="{i18n.idHelpdesc}"
-					validations={{
-						matchRegex: /^\d+$/,
-						format(values, value) {
-							return value.length === 15 || value.length === 10
-						}
-					}} 
-					validationErrors={{
-						matchRegex: '{i18n.idValidationError1}',
-						format: '{i18n.idValidationError2}'
-					}} 
-				/>
-				<FormCheckboxGroupField
-					name="hobbies"
-					type="text"
-					label="{i18n.hobbies}:"
-					value={this.state.checkedList}
-					onChange={this.onCheckboxChange}
-					required
-					helpDesc="{i18n.hobbiesHelpdesc}"
-					validations={{ 
-						minLength: 2
-					}} 
-					validationErrors={{ 
-						minLength: '{i18n.hobbiesValidationError}'
-					}}
-				>
-					<Checkbox value="movie">{i18n.hobbiesText1}</Checkbox>
-					<Checkbox value="book">{i18n.hobbiesText2}</Checkbox>
-					<Checkbox value="travel">{i18n.hobbiesText3}</Checkbox>
-				</FormCheckboxGroupField>
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
-				</div>
-			</Form>
-		);
-	}
-}
+// 		return (
+// 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
+// 				<FormInputField
+// 					name="name"
+// 					type="text"
+// 					label="{i18n.name}:"
+// 					required
+// 					helpDesc="{i18n.nameHelpdesc}"
+// 					validations={{
+// 						required: true, 
+// 						matchRegex: /^[a-zA-Z]+$/
+// 					}} 
+// 					validationErrors={{
+// 						required: '{i18n.nameValidationError1}',
+// 						matchRegex: '{i18n.nameValidationError2}'
+// 					}} 
+// 				/>
+// 				<FormInputField
+// 					name="password"
+// 					type="text"
+// 					label="{i18n.password}:"
+// 					required
+// 					helpDesc="{i18n.pwHelpdesc}"
+// 					validations={{
+// 						required: true
+// 					}} 
+// 					validationErrors={{
+// 						required: '{i18n.pwValidationError}'
+// 					}} 
+// 				/>
+// 				<FormInputField
+// 					name="confirmPw"
+// 					type="text"
+// 					label="{i18n.comfirmPw}:"
+// 					required
+// 					helpDesc="{i18n.comfirmPwHelpdesc}"
+// 					validations={{
+// 						equalsField: 'password'
+// 					}} 
+// 					validationErrors={{
+// 						equalsField: '{i18n.comfirmValidatiaonError}'
+// 					}} 
+// 				/>
+// 				<FormInputField
+// 					name="email"
+// 					type="text"
+// 					label="{i18n.email}:"
+// 					helpDesc="{i18n.emailHelodesc}"
+// 					validations={{
+// 						isEmail: true
+// 					}} 
+// 					validationErrors={{
+// 						isEmail: '{i18n.emailValidationError}'
+// 					}} 
+// 				/>
+// 				<FormInputField
+// 					name="url"
+// 					type="text"
+// 					label="{i18n.url}:"
+// 					helpDesc="{i18n.urlHelpdesc}"
+// 					validations={{
+// 						isUrl: true
+// 					}} 
+// 					validationErrors={{
+// 						isUrl: '{i18n.urlValidationError}'
+// 					}}
+// 				/>
+// 				<FormInputField
+// 					name="id"
+// 					type="text"
+// 					label="{i18n.id}:"
+// 					required
+// 					helpDesc="{i18n.idHelpdesc}"
+// 					validations={{
+// 						matchRegex: /^\d+$/,
+// 						format(values, value) {
+// 							return value.length === 15 || value.length === 10
+// 						}
+// 					}} 
+// 					validationErrors={{
+// 						matchRegex: '{i18n.idValidationError1}',
+// 						format: '{i18n.idValidationError2}'
+// 					}} 
+// 				/>
+// 				<FormCheckboxGroupField
+// 					name="hobbies"
+// 					type="text"
+// 					label="{i18n.hobbies}:"
+// 					value={this.state.checkedList}
+// 					onChange={this.onCheckboxChange}
+// 					required
+// 					helpDesc="{i18n.hobbiesHelpdesc}"
+// 					validations={{ 
+// 						minLength: 2
+// 					}} 
+// 					validationErrors={{ 
+// 						minLength: '{i18n.hobbiesValidationError}'
+// 					}}
+// 				>
+// 					<Checkbox value="movie">{i18n.hobbiesText1}</Checkbox>
+// 					<Checkbox value="book">{i18n.hobbiesText2}</Checkbox>
+// 					<Checkbox value="travel">{i18n.hobbiesText3}</Checkbox>
+// 				</FormCheckboxGroupField>
+// 				<div className="zent-form__form-actions">
+// 					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
+// 					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
+// 				</div>
+// 			</Form>
+// 		);
+// 	}
+// }
 
-const WrappedForm = createForm()(FieldForm);
+// const WrappedForm = createForm()(FieldForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<div />
 	, mountNode
 )
 ```

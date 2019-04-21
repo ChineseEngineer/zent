@@ -19,7 +19,10 @@ export class CopyButton extends Component<ICopyButtonProps> {
     onCopyError: '',
   };
 
-  onCopyCallback = (type, callback) => {
+  onCopyCallback = (
+    type: keyof typeof Notify,
+    callback: string | (() => void)
+  ) => {
     if (typeof callback === 'string') {
       Notify[type](callback);
     } else {
@@ -27,7 +30,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
     }
   };
 
-  onCopy = i18n => (text, result) => {
+  onCopy = (i18n: any) => (text: string, result: boolean) => {
     const { onCopySuccess, onCopyError } = this.props;
 
     if (result) {
@@ -42,7 +45,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
 
     return (
       <Receiver componentName="CopyButton">
-        {(i18n, { onClick = null }) => (
+        {(i18n, { onClick }: any) => (
           <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
             {children ? (
               React.Children.only(children)

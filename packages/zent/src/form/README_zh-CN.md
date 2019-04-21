@@ -56,15 +56,7 @@ scatter: true
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 
-#### 使用 `getControlGroup` 封装自定义表单域
-
 <!-- demo-slot-3 -->
-
-#### 多个表单元素的封装
-
-当一个 `Field` 里需要封装多个表单元素时，一般会将多个表单元素的 value 值封装在一个对象里传入到 `Field` 中。当无法使用 `getControlGroup` 满足封装要求时，可以自己封装组件，通过调用 `Field` 组件传入的 `onChange` 事件更改 `Field` 的 value。
-
-⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数来部分覆盖 value 值。
 
 <!-- demo-slot-4 -->
 
@@ -396,4 +388,4 @@ const component = field.getWrappedComponent().getControlInstance();
 | equals | 是否与指定值相等 | 指定值 |
 | equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |
-| minLength | 字符串或数组不能小于指定长度 | 长度值(Number) |
+| minLength | 字符串或数组不能小于指定长度 | 长度值(Number) | -->
